@@ -334,4 +334,61 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // --- Minecraft Server Invitation Popup ---
+    // Show the popup when the page loads
+    window.addEventListener('load', () => {
+        const popup = document.getElementById('minecraft-popup');
+        if (popup) {
+            // Check if user has already closed the popup in this session
+            if (!sessionStorage.getItem('minecraftPopupClosed')) {
+                setTimeout(() => {
+                    popup.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                }, 1000); // Show after 1 second
+            }
+        }
+    });
+
+    // Close popup when clicking the close button
+    const closePopupButton = document.getElementById('close-popup-btn');
+    if (closePopupButton) {
+        closePopupButton.addEventListener('click', () => {
+            const popup = document.getElementById('minecraft-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+                // Remember that the user closed the popup in this session
+                sessionStorage.setItem('minecraftPopupClosed', 'true');
+            }
+        });
+    }
+
+    // Close popup when clicking the X button
+    const closePopupX = document.querySelector('.close-popup');
+    if (closePopupX) {
+        closePopupX.addEventListener('click', () => {
+            const popup = document.getElementById('minecraft-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+                // Remember that the user closed the popup in this session
+                sessionStorage.setItem('minecraftPopupClosed', 'true');
+            }
+        });
+    }
+
+    // Close popup when clicking outside the content
+    const popup = document.getElementById('minecraft-popup');
+    if (popup) {
+        popup.addEventListener('click', (event) => {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+                // Remember that the user closed the popup in this session
+                sessionStorage.setItem('minecraftPopupClosed', 'true');
+            }
+        });
+    }
 });
+
